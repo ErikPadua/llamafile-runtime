@@ -7,6 +7,7 @@ MODEL_URL="${MODEL_URL:-https://huggingface.co/mozilla-ai/llamafile_0.10/resolve
 
 MODEL_DIR="${MODEL_DIR:-/app/models}"
 MODEL_PATH="${MODEL_DIR}/${MODEL_NAME}"
+TEMP_PATH="${MODEL_PATH}.tmp"
 
 if [[ -z "$MODEL_URL" ]]; then
     echo "ERRO: A variável MODEL_URL não foi definida."
@@ -25,9 +26,11 @@ else
 
     curl -fL --retry 3 \
         "$MODEL_URL" \
-        -o "$MODEL_PATH"
+        -o "$TEMP_PATH"
+
+    mv "$TEMP_PATH" "$MODEL_PATH"
 fi
 
 chmod +x "$MODEL_PATH"
 
-echo "Download concluído"
+echo "Download concluído!"

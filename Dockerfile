@@ -12,7 +12,7 @@ RUN apt-get update && \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY download-model.sh /usr/local/bin/download-model
+COPY Scripts/download-model.sh /usr/local/bin/download-model
 
 RUN chmod +x /usr/local/bin/download-model
 
@@ -23,4 +23,4 @@ RUN download-model
 
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/bash", "-c", "exec \"$MODEL_DIR/$MODEL_NAME\" --server --host 0.0.0.0 --port 8080"]
+ENTRYPOINT ["/bin/bash", "-c", "exec \"$MODEL_DIR/$MODEL_NAME\" --server --no-webui --host 0.0.0.0 --port 8080"]
